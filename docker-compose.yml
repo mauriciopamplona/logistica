@@ -1,0 +1,15 @@
+services:
+
+  pipeline:
+
+    build: .
+
+    container_name: logistica
+
+    volumes:
+      - .:/app
+
+    env_file:
+      - .env
+
+    command: python src/main.py
