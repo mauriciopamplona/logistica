@@ -15,3 +15,29 @@ output:
   raw: output/raw
   trusted: output/trusted
   analytics: output/analytics
+
+quality:
+
+  vehicles:
+    required_columns:
+      - veiculo_id
+      - placa
+      - status
+
+  drivers:
+    required_columns:
+      - motorista_id
+      - nome
+
+  travels:
+    required_columns:
+      - viagem_id
+      - motorista_id
+      - veiculo_id
+
+  tracking:
+    required_columns:
+      - veiculo_id
+      - timestamp
+      - latitude
+      - longitude  

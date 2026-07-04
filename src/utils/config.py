@@ -25,3 +25,7 @@ class Config:
     @property
     def output(self):
         return self._config["output"]
+    
+    @property
+    def quality(self):
+        return self._config["quality"]
