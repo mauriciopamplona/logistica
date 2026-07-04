@@ -1,0 +1,17 @@
+application:
+  name: BigCore Logistics Pipeline
+
+spark:
+  master: local[*]
+
+paths:
+  drivers: data/motoristas
+  travels: data/viagens
+  vehicles: data/veiculos
+  tracking: data/rastreamento
+  geofences: data/geocercas
+
+output:
+  raw: output/raw
+  trusted: output/trusted
+  analytics: output/analytics
