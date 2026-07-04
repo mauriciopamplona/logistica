@@ -18,7 +18,11 @@ class Reader:
         )
 
     def read_json(self, path: str) -> DataFrame:
-        return self.spark.read.json(path)
+        return (
+            self.spark.read
+            .option("multiline", "true")
+            .json(path)
+        )
 
     def read_parquet(self, path: str) -> DataFrame:
         return self.spark.read.parquet(path)
