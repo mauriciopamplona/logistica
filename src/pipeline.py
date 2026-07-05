@@ -26,38 +26,31 @@ class Pipeline:
             validator = Validator()
 
             vehicles = reader.read_csv(config.paths["vehicles"])
-            validator.validate_not_empty(vehicles, "Vehicles")
-            validator.validate_required_columns(
+            validator.validate(
                 vehicles,
                 "Vehicles",
-                config.quality["vehicles"]["required_columns"]
-            )            
+                config.quality["vehicles"]
+            )           
 
             drivers = reader.read_json(config.paths["drivers"])
-            validator.validate_not_empty(drivers, "Drivers")          
-            validator.validate_required_columns(
+            validator.validate(
                 drivers,
                 "Drivers",
-                config.quality["drivers"]["required_columns"]
+                config.quality["drivers"]
             )
-            drivers.printSchema()
-            print(drivers.columns)
 
             travels = reader.read_csv(config.paths["travels"])
-            validator.validate_not_empty(travels, "Travels")
-            validator.validate_required_columns(
+            validator.validate(
                 travels,
                 "Travels",
-                config.quality["travels"]["required_columns"]
+                config.quality["travels"]
             )
 
             tracking = reader.read_parquet(config.paths["tracking"])
-            validator.validate_not_empty(tracking, "Tracking")
-            validator.validate_required_columns(
+            validator.validate(
                 tracking,
                 "Tracking",
-                config.quality["tracking"]["required_columns"]
-            )            
-
+                config.quality["tracking"]
+            )
         finally:
             spark.stop()
