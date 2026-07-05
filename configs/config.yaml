@@ -24,10 +24,25 @@ quality:
       - placa
       - status
 
+    required_values:
+      - veiculo_id
+      - placa
+      - status
+      
+    primary_key:
+      - veiculo_id      
+
   drivers:
     required_columns:
       - motorista_id
       - nome
+
+    required_values:
+      - motorista_id
+      - nome
+      
+    primary_key:
+      - motorista_id      
 
   travels:
     required_columns:
@@ -35,9 +50,28 @@ quality:
       - motorista_id
       - veiculo_id
 
+    required_values:
+      - viagem_id
+      - motorista_id
+      - veiculo_id
+
+    primary_key:
+      - viagem_id
+
   tracking:
     required_columns:
+      - posicao_id
       - veiculo_id
       - timestamp
       - latitude
-      - longitude  
+      - longitude
+      
+    required_values:
+      - posicao_id
+      - veiculo_id
+      - timestamp
+      - latitude
+      - longitude
+      
+    primary_key:
+      - posicao_id
