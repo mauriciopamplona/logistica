@@ -12,9 +12,16 @@ paths:
   geofences: data/geocercas
 
 output:
-  raw: output/raw
-  trusted: output/trusted
-  analytics: output/analytics
+  raw: output/raw 
+  
+  trusted:
+    vehicles: output/trusted/vehicles
+    drivers: output/trusted/drivers
+    travels: output/trusted/travels
+    tracking: output/trusted/tracking
+  
+  analytics:
+    trip_summary: output/analytics/trip_summary
 
 quality:
 
@@ -30,7 +37,18 @@ quality:
       - status
       
     primary_key:
-      - veiculo_id      
+      - veiculo_id
+      
+    null_values:
+      placa: "NOT_INFORMED"
+      marca: "NOT_INFORMED"
+      modelo: "NOT_INFORMED"
+      ano_fabricacao: 0
+      tipo: "NOT_INFORMED"
+      capacidade_kg: 0    
+      capacidade_paletes: 0
+      km_atual: 0
+      status: "UNKNOWN"
 
   drivers:
     required_columns:
@@ -42,7 +60,16 @@ quality:
       - nome
       
     primary_key:
-      - motorista_id      
+      - motorista_id
+
+    null_values:
+      nome: "NOT_INFORMED"
+      cpf: "NOT_INFORMED"
+      cnh: "NOT_INFORMED"
+      categoria_cnh: "NOT_INFORMED"
+      telefone: "NOT_INFORMED"
+      base_operacional: "NOT_INFORMED"
+      status: "UNKNOWN"
 
   travels:
     required_columns:
@@ -58,6 +85,11 @@ quality:
     primary_key:
       - viagem_id
 
+    null_values:
+      status: "UNKNOWN"
+      distancia_km: 0
+      peso_carga_kg: 0
+      
   tracking:
     required_columns:
       - posicao_id
