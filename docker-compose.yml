@@ -13,3 +13,4 @@ services:
       - .env
 
     command: python src/main.py
+    #command: tail -f /dev/null

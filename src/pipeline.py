@@ -5,7 +5,9 @@ from utils.logger import get_logger
 from quality.validator import Validator
 from transform.transformer import Transformer
 from load.writer import Writer
-from output.analytics.analytics import Analytics
+from analytics.vehicle_utilization import VehicleUtilization
+from analytics.trip_summary import TripSummary
+from analytics.driver_performance import DriverPerformance
 
 logger = get_logger(__name__)
 
@@ -18,7 +20,6 @@ class Pipeline:
         config = Config()
         transformer = Transformer()
         writer = Writer()
-        analytics = Analytics()
 
         spark = get_spark_session(
             app_name=config.application["name"],
@@ -103,7 +104,7 @@ class Pipeline:
                 config.output["trusted"]["tracking"]
             )
 
-            trip_summary = analytics.build_trip_summary(
+            trip_summary = TripSummary().build(
                 travels,
                 drivers,
                 vehicles
@@ -113,6 +114,26 @@ class Pipeline:
                 trip_summary,
                 config.output["analytics"]["trip_summary"]
             )
+
+            vehicle_utilization = VehicleUtilization().build(
+                travels,
+                vehicles
+            )
+            
+            writer.write(
+                vehicle_utilization,
+                config.output["analytics"]["vehicle_utilization"]
+            )
+
+            driver_performance = DriverPerformance().build(
+                drivers,
+                travels
+            )
+            
+            writer.write(
+                driver_performance,
+                config.output["analytics"]["driver_performance"]
+            )            
 
         finally:
             spark.stop()

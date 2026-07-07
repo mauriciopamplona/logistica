@@ -22,6 +22,8 @@ output:
   
   analytics:
     trip_summary: output/analytics/trip_summary
+    vehicle_utilization: output/analytics/vehicle_utilization
+    driver_performance: output/analytics/driver_performance
 
 quality:
 
