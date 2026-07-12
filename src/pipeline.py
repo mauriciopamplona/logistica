@@ -8,8 +8,11 @@ from load.writer import Writer
 from analytics.vehicle_utilization import VehicleUtilization
 from analytics.trip_summary import TripSummary
 from analytics.driver_performance import DriverPerformance
+from services.analytics_service import AnalyticsService
 
 logger = get_logger(__name__)
+
+analytics = AnalyticsService()
 
 class Pipeline:
 
@@ -104,7 +107,7 @@ class Pipeline:
                 config.output["trusted"]["tracking"]
             )
 
-            trip_summary = TripSummary().build(
+            trip_summary = analytics.trip_summary(
                 travels,
                 drivers,
                 vehicles
@@ -115,7 +118,7 @@ class Pipeline:
                 config.output["analytics"]["trip_summary"]
             )
 
-            vehicle_utilization = VehicleUtilization().build(
+            vehicle_utilization = analytics.vehicle_utilization(
                 travels,
                 vehicles
             )
@@ -125,7 +128,7 @@ class Pipeline:
                 config.output["analytics"]["vehicle_utilization"]
             )
 
-            driver_performance = DriverPerformance().build(
+            driver_performance = analytics.driver_performance(
                 drivers,
                 travels
             )
