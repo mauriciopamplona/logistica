@@ -9,10 +9,14 @@ from analytics.vehicle_utilization import VehicleUtilization
 from analytics.trip_summary import TripSummary
 from analytics.driver_performance import DriverPerformance
 from services.analytics_service import AnalyticsService
+from services.ai_service import AIService
+from ai.ollama_client import OllamaClient
 
 logger = get_logger(__name__)
 
 analytics = AnalyticsService()
+
+ai = AIService()
 
 class Pipeline:
 
@@ -27,6 +31,14 @@ class Pipeline:
         spark = get_spark_session(
             app_name=config.application["name"],
             master=config.spark["master"]
+        )
+
+        client = OllamaClient()
+
+        print(
+            client.generate(
+                "Answer ONLY with the word OK."
+            )
         )        
 
         try:
@@ -136,6 +148,13 @@ class Pipeline:
             writer.write(
                 driver_performance,
                 config.output["analytics"]["driver_performance"]
+            )
+
+            ai.ask(
+                "Who are my best drivers?",
+                travels,
+                vehicles,
+                drivers
             )            
 
         finally:
